@@ -58,6 +58,7 @@ int main(int argc, char *argv[])
     #include "setInitialDeltaT.H"
     #include "initContinuityErrs.H"
     #include "createRhoUfIfPresent.H"
+    #include "startSummary.H"
 
     turbulence->validate();
 
@@ -146,6 +147,8 @@ int main(int argc, char *argv[])
             }
         }
 
+        #include "logSummary.H"
+      
         rho = thermo.rho();
 
         if (runTime.write())
