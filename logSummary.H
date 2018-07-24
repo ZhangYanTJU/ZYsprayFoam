@@ -14,9 +14,9 @@
     scalar vaporPenetration(0);
 
     const word fuel(thermo.lookup("fuel"));
-    Info<<"fuel==="<<fuel;
+    
     const label fuelIndex(composition.species()[fuel]);
-    Info<<"=====fuelIndex==="<<fuelIndex;
+
     forAll (Y[fuelIndex],cellI)
     {
         if (Y[fuelIndex][cellI] >= 0.001)
