@@ -9,7 +9,7 @@
     (
         "injectionModels"
     ).subDict("model1").lookup("direction");
-
+    direction /= mag(direction);
 
     scalar vaporPenetration(0);
 
