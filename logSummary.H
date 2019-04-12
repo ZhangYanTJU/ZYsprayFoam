@@ -13,19 +13,29 @@
 
     scalar vaporPenetration(0);
 
-    const word fuel(thermo.lookup("fuel"));
-    
-    const label fuelIndex(composition.species()[fuel]);
+    const wordList fuelList(thermo.subDict("liquids").keys());
 
-    forAll (Y[fuelIndex],cellI)
+    scalarField fuelMass(T.size(), 0.);
+    forAll(Y, i)
     {
-        if (Y[fuelIndex][cellI] >= 0.001)
+        forAll(fuelList, fuelID)
+        {
+            if ( Y[i].name() == fuelList[fuelID])
+            {
+                fuelMass += Y[i].primitiveField();
+            }
+        }
+    }
+
+    forAll (fuelMass,cellI)
+    {
+        if (fuelMass[cellI] >= 0.001)
         {
             vector raw = position - mesh.C()[cellI];
             if (mag(raw&direction) > vaporPenetration)
             {
                 vaporPenetration = mag(raw&direction);
-            }    
+            }
         }
     }
 
@@ -45,7 +55,7 @@
     scalar pene98 = 1.0e+3*parcels.penetration(0.98);
     scalar pene99 = 1.0e+3*parcels.penetration(0.99);
     scalar pene999 = 1.0e+3*parcels.penetration(0.999);
-  
+
     logSummaryFile()
         << 1000*runTime.value() << tab
         << T_mean << tab
@@ -57,7 +67,7 @@
         << pene95 << tab
         << pene97 << tab
         << pene98 << tab
-        << pene99 << tab	
+        << pene99 << tab
         << pene999 << tab
         << 1.0e+3*vaporPenetration << tab
         << dTdt << tab
