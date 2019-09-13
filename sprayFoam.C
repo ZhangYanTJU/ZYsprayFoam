@@ -68,6 +68,8 @@ int main(int argc, char *argv[])
 
     while (runTime.run())
     {
+        
+   
         #include "readDyMControls.H"
 
         // Store divrhoU from the previous mesh so that it can be mapped
@@ -151,10 +153,7 @@ int main(int argc, char *argv[])
       
         rho = thermo.rho();
 
-        if (runTime.write())
-        {
-            combustion->Qdot()().write();
-        }
+        runTime.write();
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"

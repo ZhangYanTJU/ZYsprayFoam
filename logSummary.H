@@ -1,12 +1,12 @@
 const dictionary& subModelDict = parcels.subModelProperties();
 vector position = subModelDict.subDict
 (
-"injectionModels"
+    "injectionModels"
 ).subDict("model1").lookup("position");
 
 vector direction = subModelDict.subDict
 (
-"injectionModels"
+    "injectionModels"
 ).subDict("model1").lookup("direction");
 direction /= mag(direction);
 
@@ -17,52 +17,52 @@ const wordList fuelList(thermo.subDict("liquids").keys());
 scalarField fuelMass(T.size(), 0.);
 forAll(Y, i)
 {
-forAll(fuelList, fuelID)
-{
-    if ( Y[i].name() == fuelList[fuelID])
+    forAll(fuelList, fuelID)
     {
-	//Info<<"Y[i].name()==="<<Y[i].name()<<endl;
-	fuelMass += Y[i].primitiveField();
+        if ( Y[i].name() == fuelList[fuelID])
+        {
+            //Info<<"Y[i].name()==="<<Y[i].name()<<endl;
+            fuelMass += Y[i].primitiveField();
+        }
     }
-}
 }
 
 forAll (fuelMass,cellI)
 {
-if (fuelMass[cellI] >= 0.001)
-{
-    vector raw = position - mesh.C()[cellI];
-    if (mag(raw&direction) > vaporPenetration)
+    if (fuelMass[cellI] >= 0.001)
     {
-	vaporPenetration = mag(raw&direction);
+        vector raw = position - mesh.C()[cellI];
+        if (mag(raw&direction) > vaporPenetration)
+        {
+            vaporPenetration = mag(raw&direction);
+        }
     }
-}
 }
 
 reduce(vaporPenetration, maxOp<scalar>());
 
 label OH_index = 0;
-if (composition.species().contains("OH")) 
+if (composition.species().contains("OH"))
 {
-OH_index = composition.species()["OH"];
+    OH_index = composition.species()["OH"];
 }
 scalar Y_OH_max = gMax(Y[OH_index]);
-scalar liftOffLength(0);
+scalar liftOffLength = great;
 
 forAll (Y[0],cellI)
 {
-if (Y[OH_index][cellI] >= 0.02*Y_OH_max)
-{
-    vector raw = position - mesh.C()[cellI];
-    liftOffLength = mag(raw&direction);
-    if (mag(raw&direction) < liftOffLength)
+    if (Y[OH_index][cellI] >= 0.02*Y_OH_max)
     {
-	liftOffLength = mag(raw&direction);
-    }          
-}
+        vector raw = position - mesh.C()[cellI];
+        liftOffLength = mag(raw&direction);
+        if (mag(raw&direction) < liftOffLength)
+        {
+            liftOffLength = mag(raw&direction);
+        }
+    }
 }
 
-reduce(liftOffLength, maxOp<scalar>());    
+reduce(liftOffLength, minOp<scalar>());
 
 
 scalar T_mean = T.weightedAverage(mesh.V()).value();
@@ -80,18 +80,18 @@ scalar pene99 = 1.0e+3*parcels.penetration(0.99);
 scalar pene999 = 1.0e+3*parcels.penetration(0.999);
 
 scalar HeatRelease = fvc::domainIntegrate(combustion->Qdot()).value(); // J/s    Qdot--dimEnergy/dimVolume/dimTime
-HRtotal += HeatRelease*runTime.deltaTValue(); // J    
+HRtotal += HeatRelease*runTime.deltaTValue(); // J
 scalar p_weightedAverage = p.weightedAverage(mesh.V()).value();
-	
-    
+
+
 if (Pstream::master())
 {
     logSummaryFile()
         << 1000*runTime.value() << tab //ms
         << p_weightedAverage/1.e6 << tab //MPa
-        << p_weightedAverage/1.e6 - pInitial << tab //MPa //pressure rise        
+        << p_weightedAverage/1.e6 - pInitial << tab //MPa //pressure rise
         << HeatRelease/1000. << tab //J/ms
-        << HRtotal << tab //J       
+        << HRtotal << tab //J
         << T_mean << tab //K
         << T_max<< tab //K
         << T_min<< tab //K
@@ -103,10 +103,9 @@ if (Pstream::master())
         << pene98 << tab //mm
         << pene99 << tab //mm
         << pene999 << tab //mm
-	<< 1.0e+3*vaporPenetration << tab //mm
-	<< Y_OH_max << tab //-
-	<< 0.02*Y_OH_max << tab //-
-	<< 1.0e+3*liftOffLength << tab //mm
-        << dTdt << tab
-        << endl;
+		<< 1.0e+3*vaporPenetration << tab //mm
+		<< Y_OH_max << tab //-
+		<< 0.02*Y_OH_max << tab //-
+		<< 1.0e+3*liftOffLength << tab //mm
+        << dTdt << endl;
 }
