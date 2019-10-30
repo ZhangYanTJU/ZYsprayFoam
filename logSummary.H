@@ -103,9 +103,9 @@ if (Pstream::master())
         << pene98 << tab //mm
         << pene99 << tab //mm
         << pene999 << tab //mm
-		<< 1.0e+3*vaporPenetration << tab //mm
-		<< Y_OH_max << tab //-
-		<< 0.02*Y_OH_max << tab //-
-		<< 1.0e+3*liftOffLength << tab //mm
+        << 1.0e+3*vaporPenetration << tab //mm
+        << Y_OH_max << tab //-
+	<< 0.02*Y_OH_max << tab //-
+	<< 1.0e+3*liftOffLength << tab //mm
         << dTdt << endl;
 }
