@@ -15,6 +15,7 @@ scalar vaporPenetration = 0.;
 const wordList fuelList(thermo.subDict("liquids").keys());
 
 scalarField fuelMass(T.size(), 0.);
+/*
 forAll(Y, i)
 {
     forAll(fuelList, fuelID)
@@ -25,6 +26,11 @@ forAll(Y, i)
             fuelMass += Y[i].primitiveField();
         }
     }
+}
+*/
+forAll(fuelList, fuelI)
+{
+    fuelMass += Y[composition.species()[fuelList[fuelI]]].primitiveField();
 }
 
 forAll (fuelMass,cellI)
