@@ -48,7 +48,7 @@ forAll (fuelMass,cellI)
 reduce(vaporPenetration, maxOp<scalar>());
 
 label OH_index = 0;
-if (composition.species().contains("OH"))
+if (composition.species().found("OH"))
 {
     OH_index = composition.species()["OH"];
 }
