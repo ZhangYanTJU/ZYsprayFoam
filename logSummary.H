@@ -93,25 +93,25 @@ scalar p_weightedAverage = p.weightedAverage(mesh.V()).value();
 if (Pstream::master())
 {
     logSummaryFile()
-        << 1000*runTime.value() << tab //ms
-        << p_weightedAverage/1.e6 << tab //MPa
-        << p_weightedAverage/1.e6 - pInitial << tab //MPa //pressure rise
-        << HeatRelease/1000. << tab //J/ms
-        << HRtotal << tab //J
-        << T_mean << tab //K
-        << T_max<< tab //K
-        << T_min<< tab //K
-        << D10 << tab //mu
-        << D32 << tab //mu
-        << Dmax << tab //mu
-        << pene95 << tab //mm
-        << pene97 << tab //mm
-        << pene98 << tab //mm
-        << pene99 << tab //mm
-        << pene999 << tab //mm
-        << 1.0e+3*vaporPenetration << tab //mm
-        << Y_OH_max << tab //-
-	<< 0.02*Y_OH_max << tab //-
-	<< 1.0e+3*liftOffLength << tab //mm
-        << dTdt << endl;
+        << scientific << 1000*runTime.value() << tab //ms
+        << scientific << p_weightedAverage/1.e6 << tab //MPa
+        << scientific << p_weightedAverage/1.e6 - pInitial << tab //MPa //pressure rise
+        << scientific << HeatRelease/1000. << tab //J/ms
+        << scientific << HRtotal << tab //J
+        << scientific << T_mean << tab //K
+        << scientific << T_max<< tab //K
+        << scientific << T_min<< tab //K
+        << scientific << D10 << tab //mu
+        << scientific << D32 << tab //mu
+        << scientific << Dmax << tab //mu
+        << scientific << pene95 << tab //mm
+        << scientific << pene97 << tab //mm
+        << scientific << pene98 << tab //mm
+        << scientific << pene99 << tab //mm
+        << scientific << pene999 << tab //mm
+        << scientific << 1.0e+3*vaporPenetration << tab //mm
+        << scientific << Y_OH_max << tab //-
+        << scientific << 0.02*Y_OH_max << tab //-
+        << scientific << 1.0e+3*liftOffLength << tab //mm
+        << scientific << dTdt << endl;
 }
