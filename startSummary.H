@@ -6,6 +6,7 @@ OFstream logSummaryFile
 
 scalar pInitial = p.weightedAverage(mesh.V()).value()/1.e6;
 scalar HRtotal = 0.;
+scalar Y_OH_max_max = small;
 
 logSummaryFile
     << "Time" << tab

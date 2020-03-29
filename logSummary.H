@@ -52,7 +52,12 @@ if (composition.species().found("OH"))
 {
     OH_index = composition.species()["OH"];
 }
+
 scalar Y_OH_max = gMax(Y[OH_index]);
+
+if (Y_OH_max > Y_OH_max_max) Y_OH_max_max = Y_OH_max;
+Info << "Y_OH_max_max === " << Y_OH_max_max << endl;
+
 scalar liftOffLength = great;
 
 forAll (Y[0],cellI)
