@@ -9,49 +9,25 @@ scalar HRtotal = 0.;
 scalar Y_OH_max_max = small;
 
 logSummaryFile
-    << "Time" << tab
-    << "p" << tab
-    << "pressure rise" << tab
-    << "HeatRelease" << tab //J/ms
-    << "total heat release" << tab // J
-    << "Tmean" << tab
-    << "Tmax" << tab
-    << "Tmin" << tab
-    << "D10" << tab
-    << "SMD(D32)" << tab
-    << "Dmax" << tab
-    << "L95" << tab
-    << "L97" << tab
-    << "L98" << tab
-    << "L99" << tab
-    << "L999" << tab
-    << "Vapor" << tab
-    << "Y_OH_max" << tab
-    << "2%_Y_OH_max" << tab
-    << "liftOffLength" << tab
-    << "parcelsMassInSystem" << tab
-    << "dTdt" << endl;
-
-logSummaryFile
-    << "ms" << tab
-    << "MPa" << tab
-    << "MPa" << tab
-    << "J/ms" << tab
-    << "J" << tab
-    << "K" << tab
-    << "K" << tab
-    << "K" << tab
-    << "mu" << tab
-    << "mu" << tab
-    << "mu" << tab
-    << "mm" << tab
-    << "mm" << tab
-    << "mm" << tab
-    << "mm" << tab
-    << "mm" << tab
-    << "mm" << tab
-    << "-" << tab
-    << "-" << tab
-    << "mm" << tab
-    << "kg" << tab
-    << "K/s" << endl;
+    << "Time (ms)" << tab
+    << "p (MPa)" << tab
+    << "pressure rise (MPa)" << tab
+    << "HeatRelease (J/ms)" << tab
+    << "total heat release (J)" << tab
+    << "Tmean (K)" << tab
+    << "Tmax (K)" << tab
+    << "Tmin (K)" << tab
+    << "D10 (mu)" << tab
+    << "SMD(D32) (mu)" << tab
+    << "Dmax (mu)" << tab
+    << "L95 (mm)" << tab
+    << "L97 (mm)" << tab
+    << "L98 (mm)" << tab
+    << "L99 (mm)" << tab
+    << "L999 (mm)" << tab
+    << "Vapor (mm)" << tab
+    << "Y_OH_max (-)" << tab
+    << "2%_Y_OH_max (-)" << tab
+    << "liftOffLength (mm)" << tab
+    << "parcelsMassInSystem (kg)" << tab
+    << "dTdt (K/s)" << endl;
