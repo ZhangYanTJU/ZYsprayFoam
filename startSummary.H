@@ -29,8 +29,8 @@ logSummaryFile
     << "Y_OH_max" << tab
     << "2%_Y_OH_max" << tab
     << "liftOffLength" << tab
-    << "dTdt" << tab
-    << endl;
+    << "parcelsMassInSystem" << tab
+    << "dTdt" << endl;
 
 logSummaryFile
     << "ms" << tab
@@ -53,4 +53,5 @@ logSummaryFile
     << "-" << tab
     << "-" << tab
     << "mm" << tab
+    << "kg" << tab
     << "K/s" << endl;

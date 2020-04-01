@@ -41,6 +41,7 @@ Description
 #include "pimpleControl.H"
 #include "CorrectPhi.H"
 #include "fvOptions.H"
+#include "basicReactingParcel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

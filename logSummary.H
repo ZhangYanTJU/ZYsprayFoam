@@ -93,6 +93,7 @@ scalar HeatRelease = fvc::domainIntegrate(combustion->Qdot()).value(); // J/s   
 HRtotal += HeatRelease*runTime.deltaTValue(); // J
 scalar p_weightedAverage = p.weightedAverage(mesh.V()).value();
 
+scalar parcelsMassInSystem = parcels.massInSystem();
 
 if (Pstream::master())
 {
@@ -117,5 +118,49 @@ if (Pstream::master())
         << scientific << Y_OH_max << tab //-
         << scientific << 0.02*Y_OH_max << tab //-
         << scientific << 1.0e+3*liftOffLength << tab //mm
+        << scientific << parcelsMassInSystem << tab //kg
         << scientific << dTdt << endl;
 }
+
+
+// output for parcels
+// parcels (cloud) > parcel > particle
+Info << "total nParcels === " << parcels.nParcels() << endl;
+Info << "averageParcelMass (sometimes not true when massTotal in SprayCloudProperties is not true) === " << parcels.averageParcelMass() << endl;
+Info << "total parcel mass (sometimes not true, neither)=== " << parcels.nParcels()*parcels.averageParcelMass() << endl;
+Info << "parcelsMassInSystem === " << parcels.massInSystem() << endl;
+
+//Info << "InjectionModelList-averageParcelMass === " << parcels.injectors().averageParcelMass() << endl; // may cause error
+Info << "InjectionModelList-size === " << parcels.injectors().size() << endl;
+
+
+forAll(parcels.injectors(), injectorI)
+{
+    Info << "InjectionModel-nInjections (cumulative) === " << parcels.injectors()[injectorI].nInjections() << endl;
+    Info << "InjectionModel-parcelsAddedTotal (cumulative) === " << parcels.injectors()[injectorI].parcelsAddedTotal() << endl;
+    //Info << "InjectionModel-averageParcelMass === " << parcels.injectors()[injectorI].averageParcelMass() << endl; // may cause error
+    Info << "InjectionModel-massTotal (massTotal you specified in SprayCloudProperties) === " << parcels.injectors()[injectorI].massTotal() << endl;
+    Info << "InjectionModel-mass injected (cumulative) === " << parcels.injectors()[injectorI].massInjected() << endl;
+    Info << "InjectionModel-volumeTotal_ ( flowRateProfile.integrate(0, duration) ) === " << parcels.injectors()[injectorI].volumeTotal() << endl;
+    Info << "InjectionModel-Volume of parcels to inject = volumeToInject(deltaT)/volumeTotal_ )" << endl;
+}
+
+
+/*
+// if needed, you can uncomment this block to see more information
+forAllConstIter(basicSprayCloud, parcels, pIter)
+{
+    const basicReactingParcel& p = pIter();
+    const label celli = p.cell();
+
+    //sumParticles[celli] += p.nParticle();
+    Info << "in this parcel, nParticle === " << p.nParticle() << endl;
+    Info << "particle rho === " << p.rho() << endl;
+    Info << "particle T === " << p.T() << endl;
+    Info << "particle d === " << p.d() << endl;
+    Info << "particle volume === " << p.volume() << endl;
+    Info << "particle volume-ZY === " << Foam::constant::mathematical::pi/6.0*pow3(p.d()) << endl;
+    Info << "particle mass === " << p.mass() << endl;  
+    Info << "particle mass-ZY === " << p.rho()*Foam::constant::mathematical::pi*pow3(p.d())/6. << endl;    
+}
+*/
