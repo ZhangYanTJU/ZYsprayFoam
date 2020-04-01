@@ -125,42 +125,44 @@ if (Pstream::master())
 
 // output for parcels
 // parcels (cloud) > parcel > particle
-Info << "total nParcels === " << parcels.nParcels() << endl;
-Info << "averageParcelMass (sometimes not true when massTotal in SprayCloudProperties is not true) === " << parcels.averageParcelMass() << endl;
-Info << "total parcel mass (sometimes not true, neither)=== " << parcels.nParcels()*parcels.averageParcelMass() << endl;
-Info << "parcelsMassInSystem === " << parcels.massInSystem() << endl;
+Pout << "total nParcels === " << parcels.nParcels() << endl;
+Pout << "averageParcelMass (sometimes not true when massTotal in SprayCloudProperties is not true) === " << parcels.averageParcelMass() << endl;
+Pout << "total parcel mass (sometimes not true, neither)=== " << parcels.nParcels()*parcels.averageParcelMass() << endl;
+Pout << "parcelsMassInSystem === " << parcels.massInSystem() << endl;
 
-//Info << "InjectionModelList-averageParcelMass === " << parcels.injectors().averageParcelMass() << endl; // may cause error
-Info << "InjectionModelList-size === " << parcels.injectors().size() << endl;
+//Pout << "InjectionModelList-averageParcelMass === " << parcels.injectors().averageParcelMass() << endl; // may cause error
+Pout << "InjectionModelList-size === " << parcels.injectors().size() << endl;
 
 
 forAll(parcels.injectors(), injectorI)
 {
-    Info << "InjectionModel-nInjections (cumulative) === " << parcels.injectors()[injectorI].nInjections() << endl;
-    Info << "InjectionModel-parcelsAddedTotal (cumulative) === " << parcels.injectors()[injectorI].parcelsAddedTotal() << endl;
-    //Info << "InjectionModel-averageParcelMass === " << parcels.injectors()[injectorI].averageParcelMass() << endl; // may cause error
-    Info << "InjectionModel-massTotal (massTotal you specified in SprayCloudProperties) === " << parcels.injectors()[injectorI].massTotal() << endl;
-    Info << "InjectionModel-mass injected (cumulative) === " << parcels.injectors()[injectorI].massInjected() << endl;
-    Info << "InjectionModel-volumeTotal_ ( flowRateProfile.integrate(0, duration) ) === " << parcels.injectors()[injectorI].volumeTotal() << endl;
-    Info << "InjectionModel-Volume of parcels to inject = volumeToInject(deltaT)/volumeTotal_ )" << endl;
+    Pout << "InjectionModel-nInjections (cumulative) === " << parcels.injectors()[injectorI].nInjections() << endl;
+    Pout << "InjectionModel-parcelsAddedTotal (cumulative) === " << parcels.injectors()[injectorI].parcelsAddedTotal() << endl;
+    //Pout << "InjectionModel-averageParcelMass === " << parcels.injectors()[injectorI].averageParcelMass() << endl; // may cause error
+    Pout << "InjectionModel-massTotal (massTotal you specified in SprayCloudProperties) === " << parcels.injectors()[injectorI].massTotal() << endl;
+    Pout << "InjectionModel-mass injected (cumulative) === " << parcels.injectors()[injectorI].massInjected() << endl;
+    Pout << "InjectionModel-volumeTotal_ ( flowRateProfile.integrate(0, duration) ) === " << parcels.injectors()[injectorI].volumeTotal() << endl;
+    Pout << "InjectionModel-Volume of parcels to inject = volumeToInject(deltaT)/volumeTotal_ )" << endl;
 }
 
 
-/*
+
 // if needed, you can uncomment this block to see more information
+/*
 forAllConstIter(basicSprayCloud, parcels, pIter)
 {
     const basicReactingParcel& p = pIter();
     const label celli = p.cell();
 
     //sumParticles[celli] += p.nParticle();
-    Info << "in this parcel, nParticle === " << p.nParticle() << endl;
-    Info << "particle rho === " << p.rho() << endl;
-    Info << "particle T === " << p.T() << endl;
-    Info << "particle d === " << p.d() << endl;
-    Info << "particle volume === " << p.volume() << endl;
-    Info << "particle volume-ZY === " << Foam::constant::mathematical::pi/6.0*pow3(p.d()) << endl;
-    Info << "particle mass === " << p.mass() << endl;  
-    Info << "particle mass-ZY === " << p.rho()*Foam::constant::mathematical::pi*pow3(p.d())/6. << endl;    
+    Pout << "in this parcel, nParticle === " << p.nParticle() << endl;
+    Pout << "parcel position (x y z)=== " << p.position() << endl;
+    Pout << "particle rho === " << p.rho() << endl;
+    Pout << "particle T === " << p.T() << endl;
+    Pout << "particle d === " << p.d() << endl;
+    Pout << "particle volume === " << p.volume() << endl;
+    Pout << "particle volume-ZY === " << Foam::constant::mathematical::pi/6.0*pow3(p.d()) << endl;
+    Pout << "particle mass === " << p.mass() << endl;  
+    Pout << "particle mass-ZY === " << p.rho()*Foam::constant::mathematical::pi*pow3(p.d())/6. << endl;    
 }
 */
