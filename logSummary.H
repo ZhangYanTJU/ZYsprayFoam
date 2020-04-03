@@ -94,6 +94,7 @@ HRtotal += HeatRelease*runTime.deltaTValue(); // J
 scalar p_weightedAverage = p.weightedAverage(mesh.V()).value();
 
 scalar parcelsMassInSystem = parcels.massInSystem();
+reduce(parcelsMassInSystem, sumOp<scalar>());
 
 if (Pstream::master())
 {
@@ -126,23 +127,23 @@ if (Pstream::master())
 // output for parcels
 // parcels (cloud) > parcel > particle
 Pout << "total nParcels === " << parcels.nParcels() << endl;
-Pout << "averageParcelMass (sometimes not true when massTotal in SprayCloudProperties is not true) === " << parcels.averageParcelMass() << endl;
+Info << "averageParcelMass (sometimes not true when massTotal in SprayCloudProperties is not true) === " << parcels.averageParcelMass() << endl;
 Pout << "total parcel mass (sometimes not true, neither)=== " << parcels.nParcels()*parcels.averageParcelMass() << endl;
 Pout << "parcelsMassInSystem === " << parcels.massInSystem() << endl;
 
-//Pout << "InjectionModelList-averageParcelMass === " << parcels.injectors().averageParcelMass() << endl; // may cause error
-Pout << "InjectionModelList-size === " << parcels.injectors().size() << endl;
+//Info << "InjectionModelList-averageParcelMass === " << parcels.injectors().averageParcelMass() << endl; // may cause error
+Info << "InjectionModelList-size === " << parcels.injectors().size() << endl;
 
 
 forAll(parcels.injectors(), injectorI)
 {
-    Pout << "InjectionModel-nInjections (cumulative) === " << parcels.injectors()[injectorI].nInjections() << endl;
-    Pout << "InjectionModel-parcelsAddedTotal (cumulative) === " << parcels.injectors()[injectorI].parcelsAddedTotal() << endl;
-    //Pout << "InjectionModel-averageParcelMass === " << parcels.injectors()[injectorI].averageParcelMass() << endl; // may cause error
-    Pout << "InjectionModel-massTotal (massTotal you specified in SprayCloudProperties) === " << parcels.injectors()[injectorI].massTotal() << endl;
-    Pout << "InjectionModel-mass injected (cumulative) === " << parcels.injectors()[injectorI].massInjected() << endl;
-    Pout << "InjectionModel-volumeTotal_ ( flowRateProfile.integrate(0, duration) ) === " << parcels.injectors()[injectorI].volumeTotal() << endl;
-    Pout << "InjectionModel-Volume of parcels to inject = volumeToInject(deltaT)/volumeTotal_ )" << endl;
+    Info << "InjectionModel-nInjections (cumulative) === " << parcels.injectors()[injectorI].nInjections() << endl;
+    Info << "InjectionModel-parcelsAddedTotal (cumulative) === " << parcels.injectors()[injectorI].parcelsAddedTotal() << endl;
+    //Info << "InjectionModel-averageParcelMass === " << parcels.injectors()[injectorI].averageParcelMass() << endl; // may cause error
+    Info << "InjectionModel-massTotal (massTotal you specified in SprayCloudProperties) === " << parcels.injectors()[injectorI].massTotal() << endl;
+    Info << "InjectionModel-mass injected (cumulative) === " << parcels.injectors()[injectorI].massInjected() << endl;
+    Info << "InjectionModel-volumeTotal_ ( flowRateProfile.integrate(0, duration) ) === " << parcels.injectors()[injectorI].volumeTotal() << endl;
+    Info << "InjectionModel-Volume of parcels to inject = volumeToInject(deltaT)/volumeTotal_ )" << endl;
 }
 
 
