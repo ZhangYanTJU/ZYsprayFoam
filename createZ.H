@@ -42,3 +42,18 @@ volScalarField Chi
     dimensionedScalar(dimless/dimTime, 0),
     zeroGradientFvPatchScalarField::typeName
 );
+
+volScalarField varZ_algebraic
+(
+    IOobject
+    (
+        "varZ_algebraic",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar(dimless, 0),
+    zeroGradientFvPatchScalarField::typeName
+);
