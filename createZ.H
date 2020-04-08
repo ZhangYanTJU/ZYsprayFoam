@@ -12,3 +12,33 @@ volScalarField Z
     dimensionedScalar(dimless, 0),
     zeroGradientFvPatchScalarField::typeName
 );
+
+volScalarField varZ
+(
+    IOobject
+    (
+        "varZ",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar(dimless, 0),
+    zeroGradientFvPatchScalarField::typeName
+);
+
+volScalarField Chi
+(
+    IOobject
+    (
+        "Chi",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar(dimless/dimTime, 0),
+    zeroGradientFvPatchScalarField::typeName
+);

@@ -124,8 +124,9 @@ if (Pstream::master())
 }
 
 
-// output for parcels
+// output for parcels if needed, you can uncomment this block to see more information
 // parcels (cloud) > parcel > particle
+/*
 Pout << "total nParcels === " << parcels.nParcels() << endl;
 Info << "averageParcelMass (sometimes not true when massTotal in SprayCloudProperties is not true) === " << parcels.averageParcelMass() << endl;
 Pout << "total parcel mass (sometimes not true, neither)=== " << parcels.nParcels()*parcels.averageParcelMass() << endl;
@@ -145,7 +146,7 @@ forAll(parcels.injectors(), injectorI)
     Info << "InjectionModel-volumeTotal_ ( flowRateProfile.integrate(0, duration) ) === " << parcels.injectors()[injectorI].volumeTotal() << endl;
     Info << "InjectionModel-Volume of parcels to inject = volumeToInject(deltaT)/volumeTotal_ )" << endl;
 }
-
+*/
 
 
 // if needed, you can uncomment this block to see more information
