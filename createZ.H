@@ -57,3 +57,29 @@ volScalarField varZ_algebraic
     dimensionedScalar(dimless, 0),
     zeroGradientFvPatchScalarField::typeName
 );
+
+volScalarField hc
+(
+    IOobject
+    (
+        "hc",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    thermo.hc()
+);
+
+volScalarField ha
+(
+    IOobject
+    (
+        "ha",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    thermo.he()+thermo.hc()
+);
