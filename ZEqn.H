@@ -18,7 +18,7 @@
     {
         const compressible::LESModel& lesModel
             = mesh.objectRegistry::lookupObject<compressible::LESModel>(turbulenceModel::propertiesName);
-        Chi_ = 2*turbulence.nu()*magSqr(fvc::grad(Z_)) + Cchi_*turbulence.nut()*varZ_/Foam::sqr(lesModel.delta());
+        Chi = 2*turbulence->nu()*magSqr(fvc::grad(Z)) + 2*turbulence->nut()*varZ/Foam::sqr(lesModel.delta());
         varZ_algebraic = 2*Foam::sqr(lesModel.delta())*magSqr(fvc::grad(Z));
     }
 
