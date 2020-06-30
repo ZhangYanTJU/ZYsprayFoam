@@ -70,8 +70,8 @@ int main(int argc, char *argv[])
 
     while (pimple.run(runTime))
     {
-        
-   
+
+
         #include "readDyMControls.H"
 
         // Store divrhoU from the previous mesh so that it can be mapped
@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
         }
 
         #include "logSummary.H"
-      
+
         rho = thermo.rho();
 
         runTime.write();

@@ -164,7 +164,7 @@ forAllConstIter(basicSprayCloud, parcels, pIter)
     Pout << "particle d === " << p.d() << endl;
     Pout << "particle volume === " << p.volume() << endl;
     Pout << "particle volume-ZY === " << Foam::constant::mathematical::pi/6.0*pow3(p.d()) << endl;
-    Pout << "particle mass === " << p.mass() << endl;  
-    Pout << "particle mass-ZY === " << p.rho()*Foam::constant::mathematical::pi*pow3(p.d())/6. << endl;    
+    Pout << "particle mass === " << p.mass() << endl;
+    Pout << "particle mass-ZY === " << p.rho()*Foam::constant::mathematical::pi*pow3(p.d())/6. << endl;
 }
 */
