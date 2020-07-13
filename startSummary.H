@@ -27,7 +27,7 @@ logSummaryFile
     << "L999 (mm)" << tab
     << "Vapor (mm)" << tab
     << "Y_OH_max (-)" << tab
-    << "2%_Y_OH_max (-)" << tab
     << "liftOffLength (mm)" << tab
+    << "liftOffLength(14%OH) (mm)" << tab
     << "parcelsMassInSystem (kg)" << tab
     << "dTdt (K/s)" << endl;

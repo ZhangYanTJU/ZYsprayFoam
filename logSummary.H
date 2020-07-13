@@ -14,28 +14,15 @@ scalar vaporPenetration = 0.;
 
 const wordList fuelList(thermo.subDict("liquids").keys());
 
-scalarField fuelMass(T.size(), 0.);
-/*
-forAll(Y, i)
-{
-    forAll(fuelList, fuelID)
-    {
-        if ( Y[i].name() == fuelList[fuelID])
-        {
-            //Info<<"Y[i].name()==="<<Y[i].name()<<endl;
-            fuelMass += Y[i].primitiveField();
-        }
-    }
-}
-*/
+scalarField Y_fuel(T.size(), 0.);
 forAll(fuelList, fuelI)
 {
-    fuelMass += Y[composition.species()[fuelList[fuelI]]].primitiveField();
+    Y_fuel += Y[composition.species()[fuelList[fuelI]]].primitiveField();
 }
 
-forAll (fuelMass,cellI)
+forAll (Y_fuel,cellI)
 {
-    if (fuelMass[cellI] >= 0.001)
+    if (Y_fuel[cellI] >= 0.001)
     {
         vector raw = position - mesh.C()[cellI];
         if (mag(raw&direction) > vaporPenetration)
@@ -56,7 +43,7 @@ if (composition.species().found("OH"))
 scalar Y_OH_max = gMax(Y[OH_index]);
 
 if (Y_OH_max > Y_OH_max_max) Y_OH_max_max = Y_OH_max;
-Info << "Y_OH_max_max === " << Y_OH_max_max << endl;
+Info << "max(Y_OH) until now === " << Y_OH_max_max << endl;
 
 scalar liftOffLength = great;
 
@@ -71,8 +58,23 @@ forAll (Y[0],cellI)
         }
     }
 }
-
 reduce(liftOffLength, minOp<scalar>());
+
+
+scalar liftOffLength14 = great;
+
+forAll (Y[0],cellI)
+{
+    if (Y[OH_index][cellI] >= 0.14*Y_OH_max)
+    {
+        vector raw = position - mesh.C()[cellI];
+        if (mag(raw&direction) < liftOffLength14)
+        {
+            liftOffLength14 = mag(raw&direction);
+        }
+    }
+}
+reduce(liftOffLength14, minOp<scalar>());
 
 
 scalar T_mean = T.weightedAverage(mesh.V()).value();
@@ -117,8 +119,8 @@ if (Pstream::master())
         << scientific << pene999 << tab //mm
         << scientific << 1.0e+3*vaporPenetration << tab //mm
         << scientific << Y_OH_max << tab //-
-        << scientific << 0.02*Y_OH_max << tab //-
         << scientific << 1.0e+3*liftOffLength << tab //mm
+        << scientific << 1.0e+3*liftOffLength14 << tab //mm
         << scientific << parcelsMassInSystem << tab //kg
         << scientific << dTdt << endl;
 }
