@@ -33,7 +33,7 @@ EXE_LIBS = \
     -llagrangian \
     -llagrangianIntermediate \
     -llagrangianTurbulence \
-    -llagrangianSpray \    
+    -llagrangianSpray \
     -lspecie \
     -lcompressibleTransportModels \
     -lfluidThermophysicalModels \
