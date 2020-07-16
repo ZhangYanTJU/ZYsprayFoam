@@ -49,7 +49,7 @@ scalar liftOffLength = great;
 
 forAll (Y[0],cellI)
 {
-    if (Y[OH_index][cellI] >= 0.02*Y_OH_max)
+    if (Y[OH_index][cellI] > 0.02*Y_OH_max)
     {
         vector raw = position - mesh.C()[cellI];
         if (mag(raw&direction) < liftOffLength)
@@ -65,7 +65,7 @@ scalar liftOffLength14 = great;
 
 forAll (Y[0],cellI)
 {
-    if (Y[OH_index][cellI] >= 0.14*Y_OH_max)
+    if (Y[OH_index][cellI] > 0.14*Y_OH_max)
     {
         vector raw = position - mesh.C()[cellI];
         if (mag(raw&direction) < liftOffLength14)
