@@ -150,13 +150,12 @@ int main(int argc, char *argv[])
             }
         }
 
-        #include "logSummary.H"
-
         rho = thermo.rho();
         hc = thermo.hc();
         ha = hc + thermo.he();
 
         runTime.write();
+        #include "logSummary.H"
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
