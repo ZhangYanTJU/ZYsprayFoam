@@ -5,12 +5,10 @@ volScalarField Z
         "Z",
         runTime.timeName(),
         mesh,
-        IOobject::NO_READ,
+        IOobject::MUST_READ,
         IOobject::AUTO_WRITE
     ),
-    mesh,
-    dimensionedScalar(dimless, 0),
-    zeroGradientFvPatchScalarField::typeName
+    mesh
 );
 
 volScalarField varZ
@@ -20,12 +18,10 @@ volScalarField varZ
         "varZ",
         runTime.timeName(),
         mesh,
-        IOobject::NO_READ,
+        IOobject::MUST_READ,
         IOobject::AUTO_WRITE
     ),
-    mesh,
-    dimensionedScalar(dimless, 0),
-    zeroGradientFvPatchScalarField::typeName
+    mesh
 );
 
 volScalarField Chi
@@ -40,7 +36,7 @@ volScalarField Chi
     ),
     mesh,
     dimensionedScalar(dimless/dimTime, 0),
-    zeroGradientFvPatchScalarField::typeName
+    calculatedFvPatchScalarField::typeName
 );
 
 volScalarField varZ_algebraic
@@ -54,8 +50,8 @@ volScalarField varZ_algebraic
         IOobject::AUTO_WRITE
     ),
     mesh,
-    dimensionedScalar(dimless, 0),
-    zeroGradientFvPatchScalarField::typeName
+    dimensionedScalar(dimless/dimTime, 0),
+    calculatedFvPatchScalarField::typeName
 );
 
 volScalarField hc
