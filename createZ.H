@@ -1,3 +1,6 @@
+// use this constructor:
+// GeometricField(const IOobject&, const Internal&, const PtrList<PatchField<Type>>&);
+
 volScalarField Z
 (
     IOobject
@@ -5,10 +8,11 @@ volScalarField Z
         "Z",
         runTime.timeName(),
         mesh,
-        IOobject::MUST_READ,
+        IOobject::READ_IF_PRESENT,
         IOobject::AUTO_WRITE
     ),
-    mesh
+    0*Y[0],
+    Y[0].boundaryField()
 );
 
 volScalarField varZ
@@ -18,10 +22,11 @@ volScalarField varZ
         "varZ",
         runTime.timeName(),
         mesh,
-        IOobject::MUST_READ,
+        IOobject::READ_IF_PRESENT,
         IOobject::AUTO_WRITE
     ),
-    mesh
+    0*Y[0],
+    Y[0].boundaryField()
 );
 
 volScalarField Chi
@@ -35,8 +40,8 @@ volScalarField Chi
         IOobject::AUTO_WRITE
     ),
     mesh,
-    dimensionedScalar(dimless/dimTime, 0),
-    calculatedFvPatchScalarField::typeName
+    dimensionedScalar(dimless/dimTime, 0)
+    // default calculatedType
 );
 
 volScalarField varZ_algebraic
@@ -50,8 +55,8 @@ volScalarField varZ_algebraic
         IOobject::AUTO_WRITE
     ),
     mesh,
-    dimensionedScalar(dimless/dimTime, 0),
-    calculatedFvPatchScalarField::typeName
+    dimensionedScalar(dimless, 0)
+    // default calculatedType
 );
 
 volScalarField hc
